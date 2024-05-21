@@ -12,9 +12,4 @@ public class SpringJpaDemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringJpaDemoApplication.class, args);
 	}
-
-	@GetMapping(value="/")
-	public String helloWorld(){
-		return "Hello world";
-	}
 }
