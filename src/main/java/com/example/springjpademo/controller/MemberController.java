@@ -3,6 +3,9 @@ package com.example.springjpademo.controller;
 import com.example.springjpademo.dto.MemberFormDto;
 import com.example.springjpademo.entity.Member;
 import com.example.springjpademo.service.MemberService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/members")
+@Tag(name = "Member", description = "사용자 관련")
 public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
@@ -26,6 +30,16 @@ public class MemberController {
         return "member/memberForm";
     }
 
+    @Operation(
+            summary = "Member",
+            description = "사용자 저장",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "메인페이지로 포워딩"
+                    )
+            }
+    )
     @PostMapping("/new")
     public String memberForm(@Valid MemberFormDto memberFormDto,
                              BindingResult bindingResult, Model model){
